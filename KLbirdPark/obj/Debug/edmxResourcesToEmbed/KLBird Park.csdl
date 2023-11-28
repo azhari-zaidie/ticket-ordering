@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KlBirdParkDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="customer">
+    <Key>
+      <PropertyRef Name="IdPayment" />
+    </Key>
+    <Property Name="IdPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cardHolder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nameCard" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IdOrder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblorder" Relationship="Self.FK_customer_order" FromRole="customer" ToRole="tblorder" />
+  </EntityType>
+  <EntityType Name="tblorder">
+    <Key>
+      <PropertyRef Name="IdOrder" />
+    </Key>
+    <Property Name="IdOrder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="totalQtyAdult" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="totalQtyChild" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="totalAmountAdult" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="totalAmountChildren" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="totalAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="customers" Relationship="Self.FK_customer_order" FromRole="tblorder" ToRole="customer" />
+  </EntityType>
+  <Association Name="FK_customer_order">
+    <End Role="tblorder" Type="Self.tblorder" Multiplicity="0..1" />
+    <End Role="customer" Type="Self.customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblorder">
+        <PropertyRef Name="IdOrder" />
+      </Principal>
+      <Dependent Role="customer">
+        <PropertyRef Name="IdOrder" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="KlBirdParkDBEntiti" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="customers" EntityType="Self.customer" />
+    <EntitySet Name="tblorders" EntityType="Self.tblorder" />
+    <AssociationSet Name="FK_customer_order" Association="Self.FK_customer_order">
+      <End Role="tblorder" EntitySet="tblorders" />
+      <End Role="customer" EntitySet="customers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

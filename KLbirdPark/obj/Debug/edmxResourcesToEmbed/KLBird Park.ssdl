@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KlBirdParkDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="customer">
+    <Key>
+      <PropertyRef Name="IdPayment" />
+    </Key>
+    <Property Name="IdPayment" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="contact" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="address" Type="varchar" MaxLength="50" />
+    <Property Name="cardHolder" Type="varchar" MaxLength="50" />
+    <Property Name="nameCard" Type="varchar" MaxLength="50" />
+    <Property Name="IdOrder" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblorder">
+    <Key>
+      <PropertyRef Name="IdOrder" />
+    </Key>
+    <Property Name="IdOrder" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="totalQtyAdult" Type="varchar" MaxLength="50" />
+    <Property Name="totalQtyChild" Type="varchar" MaxLength="50" />
+    <Property Name="totalAmountAdult" Type="nchar" MaxLength="10" />
+    <Property Name="totalAmountChildren" Type="nchar" MaxLength="10" />
+    <Property Name="totalAmount" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_customer_order">
+    <End Role="tblorder" Type="Self.tblorder" Multiplicity="0..1" />
+    <End Role="customer" Type="Self.customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblorder">
+        <PropertyRef Name="IdOrder" />
+      </Principal>
+      <Dependent Role="customer">
+        <PropertyRef Name="IdOrder" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="KlBirdParkDBModelStoreContainer">
+    <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblorder" EntityType="Self.tblorder" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_customer_order" Association="Self.FK_customer_order">
+      <End Role="tblorder" EntitySet="tblorder" />
+      <End Role="customer" EntitySet="customer" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

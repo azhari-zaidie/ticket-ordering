@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="KlBirdParkDBModelStoreContainer" CdmEntityContainer="KlBirdParkDBEntiti">
+    <EntitySetMapping Name="customers">
+      <EntityTypeMapping TypeName="KlBirdParkDBModel.customer">
+        <MappingFragment StoreEntitySet="customer">
+          <ScalarProperty Name="IdPayment" ColumnName="IdPayment" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="contact" ColumnName="contact" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="cardHolder" ColumnName="cardHolder" />
+          <ScalarProperty Name="nameCard" ColumnName="nameCard" />
+          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblorders">
+      <EntityTypeMapping TypeName="KlBirdParkDBModel.tblorder">
+        <MappingFragment StoreEntitySet="tblorder">
+          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+          <ScalarProperty Name="totalQtyAdult" ColumnName="totalQtyAdult" />
+          <ScalarProperty Name="totalQtyChild" ColumnName="totalQtyChild" />
+          <ScalarProperty Name="totalAmountAdult" ColumnName="totalAmountAdult" />
+          <ScalarProperty Name="totalAmountChildren" ColumnName="totalAmountChildren" />
+          <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

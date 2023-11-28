@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="KlBirdParkDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="IdPayment" />
+          </Key>
+          <Property Name="IdPayment" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="50" />
+          <Property Name="cardHolder" Type="varchar" MaxLength="50" />
+          <Property Name="nameCard" Type="varchar" MaxLength="50" />
+          <Property Name="IdOrder" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblorder">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdOrder" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="totalQtyAdult" Type="varchar" MaxLength="50" />
+          <Property Name="totalQtyChild" Type="varchar" MaxLength="50" />
+          <Property Name="totalAmountAdult" Type="nchar" MaxLength="10" />
+          <Property Name="totalAmountChildren" Type="nchar" MaxLength="10" />
+          <Property Name="totalAmount" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_customer_order">
+          <End Role="tblorder" Type="Self.tblorder" Multiplicity="0..1" />
+          <End Role="customer" Type="Self.customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblorder">
+              <PropertyRef Name="IdOrder" />
+            </Principal>
+            <Dependent Role="customer">
+              <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KlBirdParkDBModelStoreContainer">
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblorder" EntityType="Self.tblorder" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_customer_order" Association="Self.FK_customer_order">
+            <End Role="tblorder" EntitySet="tblorder" />
+            <End Role="customer" EntitySet="customer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KlBirdParkDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="IdPayment" />
+          </Key>
+          <Property Name="IdPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cardHolder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nameCard" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdOrder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblorder" Relationship="Self.FK_customer_order" FromRole="customer" ToRole="tblorder" />
+        </EntityType>
+        <EntityType Name="tblorder">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdOrder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="totalQtyAdult" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="totalQtyChild" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="totalAmountAdult" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="totalAmountChildren" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="totalAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="customers" Relationship="Self.FK_customer_order" FromRole="tblorder" ToRole="customer" />
+        </EntityType>
+        <Association Name="FK_customer_order">
+          <End Role="tblorder" Type="Self.tblorder" Multiplicity="0..1" />
+          <End Role="customer" Type="Self.customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblorder">
+              <PropertyRef Name="IdOrder" />
+            </Principal>
+            <Dependent Role="customer">
+              <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KlBirdParkDBEntiti" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="tblorders" EntityType="Self.tblorder" />
+          <AssociationSet Name="FK_customer_order" Association="Self.FK_customer_order">
+            <End Role="tblorder" EntitySet="tblorders" />
+            <End Role="customer" EntitySet="customers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KlBirdParkDBModelStoreContainer" CdmEntityContainer="KlBirdParkDBEntiti">
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="KlBirdParkDBModel.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="IdPayment" ColumnName="IdPayment" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="cardHolder" ColumnName="cardHolder" />
+                <ScalarProperty Name="nameCard" ColumnName="nameCard" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblorders">
+            <EntityTypeMapping TypeName="KlBirdParkDBModel.tblorder">
+              <MappingFragment StoreEntitySet="tblorder">
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="totalQtyAdult" ColumnName="totalQtyAdult" />
+                <ScalarProperty Name="totalQtyChild" ColumnName="totalQtyChild" />
+                <ScalarProperty Name="totalAmountAdult" ColumnName="totalAmountAdult" />
+                <ScalarProperty Name="totalAmountChildren" ColumnName="totalAmountChildren" />
+                <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
